@@ -18,7 +18,7 @@ For a detailed description of Igor Pro on-boarding, see the [Igor-Standard-Procs
 Our group uses python versions 3+ and makes heavy use of virtual environments issuing the Anaconda package manager. To get started with python, go to the [Anaconda](https://www.anaconda.com/) website and download the version for your current operating system. A more detailed description of onboarding for python development can be found in the [Python-Standard-Procs](https://github.com/WSU-Carbon-Lab/Python-Standard-Procs) repository. 
 
 
-## C Languages
+### C Languages
 There is little code written in the C/C++/C# ecosystem, and as such we have no standard on-boarding procedures for it's development. It is recommended instead that you instead follow the installation directions provided by [Microsoft Visual Studios Code](https://code.visualstudio.com/docs/cpp/introvideos-cpp) in getting started with C programming. 
 
 

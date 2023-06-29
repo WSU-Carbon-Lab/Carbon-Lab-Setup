@@ -62,6 +62,80 @@ Any of these naming schemes can be augmented with the addition of a prefix in an
 Never use characters such as 'O' (confused for 0), or 'l' (confused for 1) as these can be indistinguishable in some fonts. 
 
 #### Packages, Modules, Libraries
-These should all be simple, short, all lowercase names. These will be frequently included at the start of any program you write, so underscores should be avoided. If you must distinguish between similarly names modules written in different languages, use `Py_`, `Ipf_`, `C_` as a prefix in the file name. 
-
+These variable names should all be simple, short, all lowercase names. These will be frequently included at the start of any program you write, so underscores should be avoided. If you must distinguish between similarly names modules written in different languages, use `Py_`, `Ipf_`, `C_`, etc. as a prefix in the file name. 
 #### Variable Naming Conventions
+Exact naming for variables is generally left for individual repositories. 
+
+Some general guidelines for variable naming:
+- Single lowercase letters `b` are generally only suitable as index variables. There are some exceptions to this such as, `c` defining the speed of light, but explicit variable names such as `SpeedOfLight` should never hurt the readability of code. 
+- Single uppercase letters `B` should generally be avoided.
+- `UPPERCASE`, and `UPPERCASE_WITH_UNDERSCORES` variable names should be used on static global constants that are never altered in any functions.
+- `Capitalized_Words_With_Underscores` Should be avoided at all cost as it is ugly and simply adds more characters to an already long variable name. 
+
+This leaves `lowercase`, `snake_case`, `CamelCase`, and `mixedCase` variable names free for use in functions, variables, classes and methods.
+
+#### Functions, Classes, Methods, etc
+While Object oriented programming is prolific in the computer science world, objects should be avoided like the plague. Badly written objects are a nightmare to debug, especially when the original author has since left the project. In the case that objects are needed for a program to function, composition is favorable to inheritance. 
+
+In general, functions will be interacted with more frequently when processing data making it easier if they use `mixedCase` or `CamelCase` names. This leaves variables to use `lower_case` and `snake_case` naming schemes. If objects are needed in the program, `mixedCase` and `CamelCase` names should be used in their invention. Methods should then follow the naming scheme used by the functions in the remainder of the script.
+
+#### Types
+In Python and other interpreted languages, variable types are dynamically evaluated at run time. This can lead to bugs when functions expect to be passed specific data types that has since been altered. An example of this can be seen here. 
+```
+A = 10
+B = 20
+
+...
+
+A = '10'
+
+def add(x, y):
+    return x + y
+
+print(add(A,B))
+```
+This issue exists because variable types are not explicit. To fix this in all languages, variable types should be explicitly defined in the code. This improves readability and prevents errors. In C languages, the `auto` type should be avoided at all cost. An example of this fixed is 
+```
+A : int= 10
+B : int= 20
+
+...
+
+def add(x : int, y : int) -> int:
+    return x + y
+
+print(add(A,B))
+```
+## Documentation and Comments
+### Comments
+Comments should be used to describe the process the code is taking, not what each line is doing. For example,
+```
+i++ // increments i by 1
+```
+is a do nothing comment that only serves to clutter the code. Instead, doc strings should be implemented wherever possible to document what operations a function preforms. For example:
+```
+def sample_dir(data_dir: Path, destination: Path | None = None) -> None:
+    """
+    Collects the sample name from the file name for each fits file in 
+    the data_dir path. Generates a new subfolder at the destination 
+    path.
+    Parameters
+    ----------
+    data_dir : Path
+        Directory with the data located in it
+    destination : Path, optional
+        Destination folder where each sub directory will be generated, 
+        by default None signifying the destination path as
+            >>> destination = data_dir / 'Sorted'
+    """
+```
+This doc string defines the procedure that the function takes, It describes the input variables, their data types, and their default values. 
+
+Side comments still have a place, in highlighting important points in an algorithm. For example:
+```
+hc = 12000      // This conversion uses Angstroms instead of nanometers
+```
+
+Note that good variable names can go a long way to replace code commenting.
+### Documentation
+Much of our code is left without documentation, as much of out development time is spend testing, using, writing, and debugging. The industry standard uses [Doxygen](https://www.doxygen.nl/) to automate the documentation of any code. 
